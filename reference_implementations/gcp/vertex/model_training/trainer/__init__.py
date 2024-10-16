@@ -1,0 +1,13 @@
+GOOGLE_CLOUD_PROJECT = 'hitachi-rail-gtsc'
+GOOGLE_CLOUD_REGION = 'us-east1'
+GCS_BUCKET_NAME = 'PAMAP2'
+
+ENDPOINT_NAME = "pamap2_lstm_ae"
+
+LR = 0.001
+LR = 0.001
+DROPOUT = 0.1
+LSTM_UNITS = 90
+LOOK_BACK = 90
+LOSS = 'mse'
+EPOCHS = 5
