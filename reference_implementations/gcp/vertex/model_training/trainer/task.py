@@ -33,3 +33,4 @@ history = model.fit(
 
 # SAVE MODEL
 model.save(f'{BUCKET_ROOT}/{ENDPOINT_NAME}')
+
