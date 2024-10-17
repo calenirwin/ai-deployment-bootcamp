@@ -1,36 +1,28 @@
-import tensorflow as tf
-import keras
-import numpy as np
-import os
-
+from data_preprocessing import PreprocessingPipeline
 from model import create_model
-from . import EPOCHS, ENDPOINT_NAME
 
-BUCKET_ROOT = '/gcs/pamap2'
-DATA_DIR = f'{BUCKET_ROOT}/training'
-
-
-def create_datasets(data_dir):
-    """ Create train and validation dataset
-    """
-    raise NotImplementedError
+from constants import BUCKET_ROOT, DATA_DIR, MODEL_NAME, SEQUENCE_LENGTH, STEP_SIZE, EPOCHS, BATCH_SIZE, \
+    OPTIMIZER, LOSS, VAL_SPLIT
 
 # CREATE DATASETS
-train_dataset, validation_dataset = create_datasets(DATA_DIR)
+subject_ID = "subject102"
+activity_type = "Protocol"
+data_prep = PreprocessingPipeline(DATA_DIR, subject_ID=subject_ID, activity_type=activity_type)
+_, dataset = data_prep.gather_data(loop_back=SEQUENCE_LENGTH, overlap=STEP_SIZE)
 
 # CREATE/COMPILE MODEL
-model = create_model()
-model.compile(optimizer=keras.optimizers.Adam(),
-              loss=keras.losses.SparseCategoricalCrossentropy(),
+model = create_model(input_shape=dataset.shape)
+model.compile(optimizer=OPTIMIZER,
+              loss=LOSS,
               metrics=['accuracy'])
 
 # TRAIN MODEL
 history = model.fit(
-    train_dataset,
-    validation_data=validation_dataset,
-    epochs=EPOCHS
-)
+        dataset,
+        dataset,
+        epochs=EPOCHS,
+        batch_size=BATCH_SIZE,
+        validation_split=VAL_SPLIT)
 
 # SAVE MODEL
-model.save(f'{BUCKET_ROOT}/{ENDPOINT_NAME}')
-
+model.save(f'{BUCKET_ROOT}/{MODEL_NAME}')
