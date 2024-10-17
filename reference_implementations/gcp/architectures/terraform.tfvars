@@ -1,6 +1,6 @@
 project = "hitachi-rail-gtsc"
 short_project_prefix = "hitachi"
-user = "calen.irwin.user@gmail.com"
+user = "akirilenko200@gmail.com"
 env = "dev"
 region = "us-east1"
 publickeypath = "~/.ssh/id_rsa.pub"
