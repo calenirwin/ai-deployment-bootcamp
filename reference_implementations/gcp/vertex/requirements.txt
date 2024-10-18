@@ -7,3 +7,6 @@ pytfvars==1.0.3
 python-hcl2==4.3.4
 
 numpy<2
+tensorflow==2.17.0
+matplotlib==3.9.2
+scikit-learn==1.5.2
