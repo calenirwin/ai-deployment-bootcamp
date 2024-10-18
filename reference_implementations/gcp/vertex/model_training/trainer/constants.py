@@ -6,6 +6,8 @@ MODEL_NAME = "pamap_lstmae"
 
 TRAINER_URI = "us-east1-docker.pkg.dev/hitachi-rail-gtsc/pamap-trainer/pamap-trainer-image:latest"
 
+SERVING_IMAGE="us-docker.pkg.dev/vertex-ai/prediction/tf2-cpu.2-13:latest"
+
 LR = 0.001
 DROPOUT = 0.1
 LSTM_UNITS = 90
